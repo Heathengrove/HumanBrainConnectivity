@@ -1,0 +1,214 @@
+load('macaque71.mat')
+
+%% Degree and Similarity
+
+%Degree 
+[kden,N,K] = density_dir(CIJ)
+
+%Strength VEC
+[is,os,str] = strengths_dir(CIJ)
+figure;
+subplot(1,3,1); hold on
+boxplot(is)
+ylabel('sum of inward link weights')
+xlabel('inward links')
+ 
+subplot(1,3,2);
+histogram(is)
+ylabel('sum of inward link weights')
+xlabel('name of xlabel')
+title('inward links')
+ 
+subplot(1,3,3);
+stem(is)
+ylabel('sum of inward link weights')
+xlabel('inward links')
+%saveas(gcf,'Inward_Link_Strength.png')
+
+figure;
+subplot(1,3,1); hold on
+boxplot(os)
+ylabel('sum of outward link weights')
+xlabel('outward links')
+ 
+subplot(1,3,2);
+histogram(os)
+ylabel('sum of outward link weights')
+xlabel('outward links')
+title('Node strength')
+ 
+subplot(1,3,3);
+stem(os)
+ylabel('sum of inward link weights')
+xlabel('outward links')
+%saveas(gcf,'Outward_Link_Strength.png')
+
+%Joint Degree MATRIX
+[J,J_od,J_id,J_bl] = jdegree(CIJ)
+
+figure;
+imagesc(J)
+colorbar
+title('Joint Degree')
+ylabel('Outgoing')
+xlabel('Ingoing')
+%saveas(gcf,'JoingDegreeMatrix.png')
+
+%Neighborhood Overlap 
+[EC,ec,degij] = edge_nei_overlap_bd(CIJ)
+figure;
+imagesc(EC)
+colorbar
+title('Edge Neighborhood Overlap Matrix')
+ylabel('Nodes-u')
+xlabel('Nodes-v')
+%saveas(gcf,'NieghborhoodOverlap.png')
+
+%Matching Index 
+[Min,Mout,Mall] = matching_ind(CIJ)
+
+figure;
+imagesc(Min)
+colorbar
+title('Matching Index')
+ylabel('Nodes-u')
+xlabel('Nodes-v')
+%saveas(gcf,'MatchingINdex.png')
+
+%% Density and Rentian Scaling
+
+%Density 
+[kden,N,K] = density_dir(CIJ)
+
+%% Clustering and Community Structure
+
+%Clustering Coefficient SCALE
+C=clustering_coef_bd(CIJ);
+
+[is,os,str] = strengths_dir(CIJ)
+figure;
+subplot(1,3,1); hold on
+boxplot(is)
+ylabel('sum of inward link weights')
+xlabel('inward links')
+ 
+subplot(1,3,2);
+histogram(is)
+ylabel('sum of inward link weights')
+xlabel('name of xlabel')
+title('inward links')
+ 
+subplot(1,3,3);
+stem(is)
+ylabel('sum of inward link weights')
+xlabel('inward links')
+%saveas(gcf,'Inward_Link_Strength.png')
+
+figure;
+subplot(1,3,1); hold on
+boxplot(os)
+ylabel('sum of outward link weights')
+xlabel('outward links')
+ 
+subplot(1,3,2);
+histogram(os)
+ylabel('sum of outward link weights')
+xlabel('outward links')
+title('Node strength')
+ 
+subplot(1,3,3);
+stem(os)
+ylabel('sum of inward link weights')
+xlabel('outward links')
+%saveas(gcf,'Outward_Link_Strength.png')
+
+%Transitivity
+T=transitivity_bd(CIJ)
+
+%Local Efficiency 
+E=efficiency_bin(CIJ, 2)
+
+%Community Structure Mod (link communities)
+ M=link_communities(CIJ, 'single')
+ 
+%Modularity Degeneracy and Consensus Partitioning (Agreement)
+%D = agreement(CIJ)%CI? 
+
+%% Assortativity and Core Structure
+
+%Assortativity
+r = assortativity_bin(CIJ,1)
+
+%Rich Club Coefficient
+[R,Nk,Ek] = rich_club_bd(CIJ)
+
+%Core Periphery Structure
+ C = core_periphery_dir(CIJ)
+ 
+%K-Core
+%[CIJkcore,kn,peelorder,peellevel] = kcore_bd(CIJ)
+
+%% Paths and Distances
+
+%Paths and Walks
+%[Pq,tpath,plq,qstop,allpths,util] = findpaths(CIJ,sources,qmax,savepths)
+%[Wq,twalk,wlq] = findwalks(CIJ)
+
+%Distance and Characteristic Path Length (retrieve shortest path)
+D= distance_bin(CIJ)
+
+%Characteristic Path Length, global efficiency, etc. 
+[lambda,efficiency,ecc,radius,diameter] = charpath(CIJ)
+
+%Cycle Probability
+[fcyc,pcyc] = cycprob(CIJ)
+
+%% Efficiency and Diffusion 
+
+%Global and Local Efficiency 
+Eglob = efficiency_bin(CIJ)
+
+%Mean first Passage Time
+MFPT = mean_first_passage_time(CIJ)
+
+%Diffusion Efficiency 
+[GEdiff,Ediff] = diffusion_efficiency(CIJ)
+
+%% Centrality 
+
+% Betweenness Centrality 
+BC=betweenness_bin(CIJ)
+
+%Edge Betweenness Cantrality 
+[EBC,BC]=edge_betweenness_bin(CIJ)
+
+%Within-module degree z-score
+Z=module_degree_zscore(CIJ,1)
+
+%Participation and Related Coefficients
+ P=participation_coef(CIJ,1)
+ 
+
+%K-coreness Centrality 
+%[CIJkcore,kn,peelorder,peellevel] = kcore_bd(CIJ)
+
+%Flow Coefficient
+[fc,FC,total_flo] = flow_coef_bd(CIJ)
+
+%Shortcuts
+[Erange,eta,Eshort,fs] = erange(CIJ)
+
+%% Motifs
+
+%Structural Motifs
+[f,F]=motif3struct_bin(CIJ)
+
+%Functional Motifs
+[f,F]=motif3funct_bin(CIJ)
+
+
+
+
+
+
+
